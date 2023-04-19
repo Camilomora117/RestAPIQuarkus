@@ -1,19 +1,10 @@
 package org.acme.repository;
 
+import javax.enterprise.context.ApplicationScoped;
+
+import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import org.acme.model.User;
 
-import java.util.List;
-
-public interface UserRepository {
-
-    User getUserById(int id);
-
-    List<User> getAllUsers();
-
-    void createUser(User user);
-
-    void updateUser(int id, User user);
-
-    void deleteUser(int id);
+@ApplicationScoped
+public class UserRepository implements PanacheMongoRepository<User> {
 }
-

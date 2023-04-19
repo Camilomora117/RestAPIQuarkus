@@ -1,18 +1,19 @@
 package org.acme.service;
 
 import org.acme.model.User;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
 public interface UserService {
 
-    User getUserById(int id);
-
     List<User> getAllUsers();
+
+    User getUserById(ObjectId id);
 
     void createUser(User user);
 
-    void updateUser(int id, User user);
+    void updateUser(User user);
 
-    void deleteUser(int id);
+    void deleteUser(User user);
 }

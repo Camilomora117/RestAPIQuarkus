@@ -2,46 +2,63 @@ package org.acme.service;
 
 import javax.inject.Inject;
 import org.acme.model.User;
-import org.acme.repository.UserRepository;
+import org.bson.types.ObjectId;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import org.bson.Document;
+
 
 import javax.enterprise.context.ApplicationScoped;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
 public class UserServiceImpl implements UserService{
 
-    @Inject
-    UserRepository userRepository;
+    @Inject MongoClient mongoClient;
 
-    @Override
+    private MongoCollection getCollection(){
+        return mongoClient.getDatabase("ClusterArep").getCollection("user");
+    }
+
     public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
+        List<User> list = new ArrayList<>();
+        MongoCursor<Document> cursor = getCollection().find().iterator();
+
+        try {
+            while (cursor.hasNext()) {
+                Document document = cursor.next();
+                User user = new User();
+                user.setName(document.getString("id"));
+                user.setName(document.getString("name"));
+                user.setEmail(document.getString("email"));
+                user.setPassword(document.getString("password"));
+                list.add(user);
+            }
+        } finally {
+            cursor.close();
+        }
+        return list;
     }
 
     @Override
-    public User getUserById(int id) {
-        return userRepository.getUserById(id);
+    public User getUserById(ObjectId id) {
+        return null;
     }
 
     @Override
     public void createUser(User user) {
-        userRepository.createUser(user);
+
     }
 
     @Override
-    public void updateUser(int id, User user) {
-        User existingUser = getUserById(id);
-        existingUser.setName(user.getName());
-        existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
-        userRepository.createUser(existingUser);
+    public void updateUser(User user) {
+
     }
 
     @Override
-    public void deleteUser(int id) {
-        User user = getUserById(id);
-        if (user != null) {
-            userRepository.deleteUser(id);
-        }
+    public void deleteUser(User user) {
+
     }
 }

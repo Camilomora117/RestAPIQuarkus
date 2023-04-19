@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import com.google.gson.Gson;
+import org.bson.types.ObjectId;
 
 @Path("/users")
 public class UserController {
@@ -27,7 +28,7 @@ public class UserController {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUser(@PathParam("id") int id) {
+    public String getUser(@PathParam("id") ObjectId id) {
         User user = userService.getUserById(id);
         Gson gson = new Gson();
         if (user != null) {
@@ -48,16 +49,16 @@ public class UserController {
     @PUT
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateUser(@PathParam("id") int id, User user) {
-        userService.updateUser(id, user);
+    public Response updateUser(User user) {
+        userService.updateUser(user);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteUser(@PathParam("id") int id) {
-        userService.deleteUser(id);
+    public Response deleteUser(User user) {
+        userService.deleteUser(user);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 }
