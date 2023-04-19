@@ -1,9 +1,8 @@
 package org.acme.model;
 
-
 public class User {
 
-    private int id;
+    private String id;
     private String name;
     private String email;
     private String password;
@@ -13,17 +12,16 @@ public class User {
     }
 
     public User(String name, String email, String password) {
-        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -49,5 +47,15 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
