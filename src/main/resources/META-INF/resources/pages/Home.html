@@ -4,7 +4,7 @@
   <title>My Page</title>
   <link rel="stylesheet" href="../CSS/Home.css">
 </head>
-<body>
+<body onload="setNameUser()">
   <nav>
 
     <div class="nav-title">
@@ -12,7 +12,7 @@
     </div>
 
     <div class="name-user">
-        <h1>Yesid Mora</h1>
+        <h1 id="username"></h1>
     </div>
 
     <div class="nav-button">
@@ -28,5 +28,6 @@
   <button onclick="handleClickForm()" class="circular-btn">+</button>
   
   <script src="../JS/Home.js"></script>
+  <script src="../JS/User.js"></script>
 </body>
 </html>

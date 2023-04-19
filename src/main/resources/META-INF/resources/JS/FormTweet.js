@@ -14,12 +14,7 @@ function cancelPost() {
 
 function postTweet() {
     const formData = {
-        "user": {
-            "id": "643f77b5377c8249955228f6",
-            "email": "yesid@mail.com",
-            "name": "Yesid Mora",
-            "password": "12345"
-        },
+        "user": User,
         "texto": textarea.value,
         "date": new Date()
     }

@@ -1,5 +1,12 @@
 // Div donde se añadiran los Tweets
 const contenedorH1 = document.getElementById('content');
+const username = document.getElementById('username');
+
+//Setear Nombre Usuario
+function setNameUser() {
+  username.innerHTML = User.name;
+}
+
 
 // Creando los elementos de Tweets
 fetch("http://localhost:8080/tweet").then(data => data.json()).then(data => createTweets(data));

@@ -8,7 +8,7 @@ form.addEventListener('submit', (event) => {
 function validarUsuario() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
-    if (username === "user" && password === "123") {
+    if (username === User.email && password === User.password) {
       window.location = "pages/Home.html";
     } else {
       alert("Usuario o contraseña incorrectos.");
