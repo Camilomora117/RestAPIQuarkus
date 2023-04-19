@@ -38,8 +38,8 @@ public class UserController {
     }
 
     @POST
-    @Produces(MediaType.MEDIA_TYPE_WILDCARD)
-    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response addUser(User user) {
         userService.createUser(user);
         return Response.status(Response.Status.CREATED).build();
@@ -48,6 +48,7 @@ public class UserController {
     @PUT
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(@PathParam("id") int id, User user) {
         userService.updateUser(id, user);
         return Response.status(Response.Status.NO_CONTENT).build();
