@@ -3,8 +3,6 @@ package org.acme.service;
 import javax.inject.Inject;
 
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.UpdateOptions;
-import com.mongodb.client.model.Updates;
 import org.acme.model.User;
 import org.bson.types.ObjectId;
 import com.mongodb.client.MongoClient;
@@ -25,10 +23,10 @@ public class UserServiceImpl implements UserService{
         return mongoClient.getDatabase("ClusterArep").getCollection("user");
     }
 
+    @Override
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
         MongoCursor<Document> cursor = getCollection().find().iterator();
-
         try {
             while (cursor.hasNext()) {
                 Document document = cursor.next();
@@ -45,7 +43,7 @@ public class UserServiceImpl implements UserService{
         return list;
     }
 
-
+    @Override
     public Optional<User> getUserById(String id) {
         ObjectId objectId = new ObjectId(id);
         Document userDocument = (Document) getCollection().find(new Document("_id", objectId)).first();

@@ -1,39 +1,38 @@
 package org.acme.controller;
 
-import org.acme.model.User;
-import org.acme.service.UserService;
+import com.google.gson.Gson;
+import org.acme.model.Stream;
+import org.acme.service.StreamService;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
-import com.google.gson.Gson;
 
-
-@Path("/user")
-public class UserController {
+@Path("/stream")
+public class StreamController {
 
     @Inject
-    UserService userService;
+    StreamService streamService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUsers() {
-        List<User> users = userService.getAllUsers();
+    public String getStreams() {
+        List<Stream> streams = streamService.getAllStreams();
         Gson gson = new Gson();
-        String json = gson.toJson(users);
+        String json = gson.toJson(streams);
         return json;
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUserById(String id) {
-        Optional<User> user = userService.getUserById(id);
+    public String getStreamById(String id) {
+        Optional<Stream> stream = streamService.getStreamById(id);
         Gson gson = new Gson();
-        if (user.isPresent()) {
-            return gson.toJson(user.get());
+        if (stream.isPresent()) {
+            return gson.toJson(stream.get());
         } else {
             throw new NotFoundException();
         }
@@ -42,8 +41,8 @@ public class UserController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addUser(User user) {
-        userService.createUser(user);
+    public Response addStream(Stream stream) {
+        streamService.createStream(stream);
         return Response.status(Response.Status.CREATED).build();
     }
 
@@ -51,8 +50,8 @@ public class UserController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateUser(String id, User user) {
-        userService.updateUser(id, user);
+    public Response updateStream(String id, Stream stream) {
+        streamService.updateStream(id, stream);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 
@@ -60,7 +59,7 @@ public class UserController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteUser(String id) {
-        userService.deleteUser(id);
+        streamService.deleteStream(id);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 }

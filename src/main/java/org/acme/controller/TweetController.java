@@ -1,39 +1,38 @@
 package org.acme.controller;
 
-import org.acme.model.User;
-import org.acme.service.UserService;
+import com.google.gson.Gson;
+import org.acme.model.Tweet;
+import org.acme.service.TweetService;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
-import com.google.gson.Gson;
 
-
-@Path("/user")
-public class UserController {
+@Path("/tweet")
+public class TweetController {
 
     @Inject
-    UserService userService;
+    TweetService tweetService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUsers() {
-        List<User> users = userService.getAllUsers();
+    public String getTweets() {
+        List<Tweet> tweets = tweetService.getAllTweet();
         Gson gson = new Gson();
-        String json = gson.toJson(users);
+        String json = gson.toJson(tweets);
         return json;
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUserById(String id) {
-        Optional<User> user = userService.getUserById(id);
+    public String getTweetById(String id) {
+        Optional<Tweet> tweet = tweetService.getTweetById(id);
         Gson gson = new Gson();
-        if (user.isPresent()) {
-            return gson.toJson(user.get());
+        if (tweet.isPresent()) {
+            return gson.toJson(tweet.get());
         } else {
             throw new NotFoundException();
         }
@@ -42,8 +41,8 @@ public class UserController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addUser(User user) {
-        userService.createUser(user);
+    public Response addTweet(Tweet tweet) {
+        tweetService.createTweet(tweet);
         return Response.status(Response.Status.CREATED).build();
     }
 
@@ -51,8 +50,8 @@ public class UserController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateUser(String id, User user) {
-        userService.updateUser(id, user);
+    public Response updateTweet(String id, Tweet tweet) {
+        tweetService.updateTweet(id, tweet);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 
@@ -60,7 +59,7 @@ public class UserController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteUser(String id) {
-        userService.deleteUser(id);
+        tweetService.deleteTweet(id);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 }
