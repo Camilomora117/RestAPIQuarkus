@@ -16,3 +16,4 @@ public interface UserRepository {
 
     void deleteUser(int id);
 }
+

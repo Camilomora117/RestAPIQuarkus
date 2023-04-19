@@ -1,11 +1,13 @@
 package org.acme.service;
 
-import com.oracle.svm.core.annotate.Inject;
+import javax.inject.Inject;
 import org.acme.model.User;
 import org.acme.repository.UserRepository;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
+@ApplicationScoped
 public class UserServiceImpl implements UserService{
 
     @Inject
