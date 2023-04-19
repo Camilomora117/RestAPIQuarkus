@@ -28,7 +28,7 @@ body {
     box-sizing: border-box;
 }
   
-.login input[type=submit] {
+button {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;

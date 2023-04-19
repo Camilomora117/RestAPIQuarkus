@@ -104,3 +104,8 @@ margin-top: 10px;
 .text p {
 margin: 0;
 }
+
+img {
+    width: 20px;
+    height: 20px;
+}
