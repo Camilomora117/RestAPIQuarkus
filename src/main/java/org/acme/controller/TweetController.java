@@ -1,6 +1,7 @@
 package org.acme.controller;
 
 import com.google.gson.Gson;
+import io.quarkus.security.Authenticated;
 import org.acme.model.Tweet;
 import org.acme.service.TweetService;
 import javax.inject.Inject;
@@ -41,6 +42,7 @@ public class TweetController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Authenticated
     public Response addTweet(Tweet tweet) {
         tweetService.createTweet(tweet);
         return Response.status(Response.Status.CREATED).build();
@@ -50,6 +52,7 @@ public class TweetController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Authenticated
     public Response updateTweet(String id, Tweet tweet) {
         tweetService.updateTweet(id, tweet);
         return Response.status(Response.Status.NO_CONTENT).build();
@@ -58,6 +61,7 @@ public class TweetController {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Authenticated
     public Response deleteUser(String id) {
         tweetService.deleteTweet(id);
         return Response.status(Response.Status.NO_CONTENT).build();

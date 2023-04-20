@@ -1,6 +1,7 @@
 package org.acme.controller;
 
 import com.google.gson.Gson;
+import io.quarkus.security.Authenticated;
 import org.acme.model.Stream;
 import org.acme.service.StreamService;
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ public class StreamController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Authenticated
     public String getStreams() {
         List<Stream> streams = streamService.getAllStreams();
         Gson gson = new Gson();
@@ -28,6 +30,7 @@ public class StreamController {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Authenticated
     public String getStreamById(String id) {
         Optional<Stream> stream = streamService.getStreamById(id);
         Gson gson = new Gson();
@@ -41,6 +44,7 @@ public class StreamController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Authenticated
     public Response addStream(Stream stream) {
         streamService.createStream(stream);
         return Response.status(Response.Status.CREATED).build();
@@ -50,6 +54,7 @@ public class StreamController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Authenticated
     public Response updateStream(String id, Stream stream) {
         streamService.updateStream(id, stream);
         return Response.status(Response.Status.NO_CONTENT).build();
@@ -58,6 +63,7 @@ public class StreamController {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Authenticated
     public Response deleteUser(String id) {
         streamService.deleteStream(id);
         return Response.status(Response.Status.NO_CONTENT).build();

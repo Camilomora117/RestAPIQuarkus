@@ -1,5 +1,6 @@
 package org.acme.controller;
 
+import io.quarkus.security.Authenticated;
 import org.acme.model.User;
 import org.acme.service.UserService;
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ public class UserController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Authenticated
     public String getUsers() {
         List<User> users = userService.getAllUsers();
         Gson gson = new Gson();
@@ -29,6 +31,7 @@ public class UserController {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Authenticated
     public String getUserById(String id) {
         Optional<User> user = userService.getUserById(id);
         Gson gson = new Gson();
@@ -42,6 +45,7 @@ public class UserController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Authenticated
     public Response addUser(User user) {
         userService.createUser(user);
         return Response.status(Response.Status.CREATED).build();
@@ -51,6 +55,7 @@ public class UserController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Authenticated
     public Response updateUser(String id, User user) {
         userService.updateUser(id, user);
         return Response.status(Response.Status.NO_CONTENT).build();
@@ -59,6 +64,7 @@ public class UserController {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Authenticated
     public Response deleteUser(String id) {
         userService.deleteUser(id);
         return Response.status(Response.Status.NO_CONTENT).build();
