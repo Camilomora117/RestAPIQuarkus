@@ -116,7 +116,10 @@ http://ec2-44-212-45-139.compute-1.amazonaws.com:34002
 
 
 # Video
-enlace video
+
+````
+https://youtu.be/0TM1PxBsKjA
+````
 
 ## Autores
 * Yesid Camilo Mora
