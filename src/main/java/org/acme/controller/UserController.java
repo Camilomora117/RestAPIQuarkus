@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
 import com.google.gson.Gson;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Path("/user")
 public class UserController {
@@ -34,6 +34,20 @@ public class UserController {
     @Authenticated
     public String getUserById(String id) {
         Optional<User> user = userService.getUserById(id);
+        Gson gson = new Gson();
+        if (user.isPresent()) {
+            return gson.toJson(user.get());
+        } else {
+            throw new NotFoundException();
+        }
+    }
+
+    @GET
+    @Path("/email/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Authenticated
+    public String getUserByEmail(String email) {
+        Optional<User> user = userService.getUserByEmail(email);
         Gson gson = new Gson();
         if (user.isPresent()) {
             return gson.toJson(user.get());

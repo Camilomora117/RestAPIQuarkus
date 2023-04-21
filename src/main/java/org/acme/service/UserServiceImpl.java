@@ -56,6 +56,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public Optional<User> getUserByEmail(String email) {
+        Document userDocument = (Document) getCollection().find(new Document("email", email)).first();
+        User user = new User();
+        user.setId(String.valueOf(userDocument.getObjectId("_id")));
+        user.setName(userDocument.getString("name"));
+        user.setEmail(userDocument.getString("email"));
+        user.setPassword(userDocument.getString("password"));
+        return Optional.of(user);
+    }
+
+    @Override
     public void createUser(User user) {
         Document document = new Document()
                 .append("name", user.getName())

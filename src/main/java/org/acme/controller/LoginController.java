@@ -5,10 +5,14 @@ import org.acme.cognito.CognitoAuth;
 import org.acme.model.User;
 import org.acme.service.UserService;
 
-import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.Objects;
+import java.util.Optional;
 
 @Path("/login")
 public class LoginController {
@@ -22,7 +26,17 @@ public class LoginController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String login(User user){
-        return cognitoAuth.login(user.getEmail(), user.getPassword()).get("message")+" Token:"+cognitoAuth.login(user.getEmail(), user.getPassword()).get("idToken");
+        String response = cognitoAuth.login(user.getEmail(), user.getPassword()).get("message");
+        if (Objects.equals(response, "Successfully login")) {
+            String token = cognitoAuth.login(user.getEmail(), user.getPassword()).get("idToken");
+            Optional<User> dataUser = userService.getUserByEmail(user.getEmail());
+            Gson gson = new Gson();
+            String json = gson.toJson(dataUser.get());
+            String res = "{" + "\"user\":" + json + ",\"token\":" + token  +"}";
+            return res;
+        } else {
+            throw new Error("Credenciales inválidas");
+        }
     }
 
     @POST

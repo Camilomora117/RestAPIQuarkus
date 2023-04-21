@@ -11,6 +11,8 @@ public interface UserService {
 
     Optional<User> getUserById(String id);
 
+    Optional<User> getUserByEmail(String email);
+
     void createUser(User user);
 
     void updateUser(String id, User user);

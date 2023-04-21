@@ -78,6 +78,10 @@
       <artifactId>aws-java-sdk-core</artifactId>
       <version>1.12.452</version>
     </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-spring-web</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
