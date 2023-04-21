@@ -41,9 +41,9 @@ Finalmente para desplegar la aplicación de forma local use el siguiente comando
 mvn compile quarkus:dev
 ```
 
-![1.png](imgs/1.png)
+![1](https://user-images.githubusercontent.com/98135134/233541531-fc4e3847-9589-4e0f-909e-b03516034587.png)
 
-![2.png](imgs/2.png)
+![image](https://user-images.githubusercontent.com/98135134/233541297-2c6eb030-2a1d-4711-bd72-28e3898cc54b.png)
 
 
 ## Despliegue en la nube
@@ -65,7 +65,7 @@ Le hacemos push al docker hub y ya lo tenemos disponible para usarlo en las inta
 Una vez se tenga la instancia de una máquina EC2 en la nube, agregamos tres reglas de entrada
 en los puertos (34000, 34001 y 34002).
 
-![3.png](imgs/3.png)
+![3](https://user-images.githubusercontent.com/98135134/233541441-80b6a3b9-2f97-469b-b0e7-e31a2b3f2b4c.png)
 
 
 seguido a esto instale docker en la consola de la máquina con los siguientes comandos:
@@ -89,7 +89,7 @@ Seguido a esto realice el siguiente comando para ver las imagenes:
 docker ps
 ````
 
-![4.png](imgs/4.png)
+![4](https://user-images.githubusercontent.com/98135134/233541466-3be49bec-0fcd-48c8-8106-64169f75097e.png)
 
 Finalmente vemos el funcionamiento de la aplicación viendo los logs
 
@@ -97,7 +97,7 @@ Finalmente vemos el funcionamiento de la aplicación viendo los logs
 docker logs quarkus
 ````
 
-![5.png](imgs/5.png)
+![5](https://user-images.githubusercontent.com/98135134/233541489-a5b074fb-7fa7-408f-bdf5-68b5b5a29d1e.png)
 
 ## Funcionamiento
 
