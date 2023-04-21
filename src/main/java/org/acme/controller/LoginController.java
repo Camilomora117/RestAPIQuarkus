@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.acme.cognito.CognitoAuth;
 import org.acme.model.User;
 import org.acme.service.UserService;
+import org.jose4j.json.internal.json_simple.JSONObject;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -29,11 +30,12 @@ public class LoginController {
         String response = cognitoAuth.login(user.getEmail(), user.getPassword()).get("message");
         if (Objects.equals(response, "Successfully login")) {
             String token = cognitoAuth.login(user.getEmail(), user.getPassword()).get("idToken");
-            Optional<User> dataUser = userService.getUserByEmail(user.getEmail());
-            Gson gson = new Gson();
-            String json = gson.toJson(dataUser.get());
-            String res = "{" + "\"user\":" + json + ",\"token\":" + token  +"}";
-            return res;
+            User dataUser = userService.getUserByEmail(user.getEmail()).get();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", dataUser.getName());
+            jsonObject.put("email", dataUser.getEmail());
+            jsonObject.put("token", token);
+            return jsonObject.toString();
         } else {
             throw new Error("Credenciales inválidas");
         }

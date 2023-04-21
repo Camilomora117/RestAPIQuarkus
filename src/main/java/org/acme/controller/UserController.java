@@ -10,7 +10,6 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
 import com.google.gson.Gson;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Path("/user")
 public class UserController {
